@@ -6,23 +6,47 @@ import exceptions.*;
 
 public class Restaurante{
     public static Restaurante criaRestauranteParaTestes(){
-        Restaurante restaurante = new Restaurante("Loja do seu Juca", "Rua das Margaridas, Bairro Jeca, Sarzedo - MG");
+        Restaurante restaurante = new Restaurante("Buchinho Cheio", "Rua das Margaridas, Bairro Jeca, Sarzedo - MG");
 
         restaurante.adicionaMesa(12, "Mesa 6 cadeiras");
         restaurante.adicionaMesa(20, "Mesa 2 cadeiras");
 
         try{
-            Comanda comanda = restaurante.encontraMesa(12).getComanda();
-            comanda.adicionaCliente("Jõao pé de feijão", "jaozin@gmail.com");
-            comanda.adicionaCliente("Maria margarida", "mariazinha@gmail.com");
+            //Mesa 12
+            Mesa mesa = restaurante.encontraMesa(12);
+            mesa.adicionaCliente("Jõao", "jaozin@gmail.com");
+            mesa.adicionaCliente("Maria", "mariazinha@gmail.com");
 
+            Comanda comanda = mesa.getComandaComida();
+            comanda.adicionaItem("Chololate com manteiga", 13.50);
+            comanda.adicionaItem("Batata fria", 27.90);
+            comanda.adicionaItem("Pipoca de camarelo", 32.12);
             comanda.adicionaItem("Pizza de Macarrão", 89.90);
             comanda.adicionaItem("Cookie vegano", 23.90);
 
-            comanda = restaurante.encontraMesa(20).getComanda();
-            comanda.adicionaCliente("Pietra Vladimir", "vladimirpietra@gmail.com");
-            comanda.adicionaItem("Churrasco de linguiça", 192.23);
-            comanda.adicionaItem("Carne vegana com sangue", 321.34);
+            comanda = mesa.getComandaBebida();
+            comanda.adicionaItem("Água pura do tiete", 79.97);
+            comanda.adicionaItem("Suco do Tibet", 54.48);
+            comanda.adicionaItem("Refri Brasil", 22);
+            comanda.adicionaItem("Suco de acerola", 13);
+
+            //Mesa 20
+            mesa = restaurante.encontraMesa(20);
+            mesa.adicionaCliente("Carlos", "carlosbolsonaro@gmail.com");
+            mesa.adicionaCliente("Lula", "lula@yahoo.com.br");
+            mesa.adicionaCliente("David", "davidgilmour@pf.com");
+            mesa.adicionaCliente("Roger", "rogerwaters@pf.com");
+
+            comanda = mesa.getComandaComida();
+            comanda.adicionaItem("Barata Frita", 19.90);
+            comanda.adicionaItem("Macaco com barbecue", 192.89);
+            comanda.adicionaItem("Sopa de batata", 12);
+
+            comanda = mesa.getComandaBebida();
+            comanda.adicionaItem("Whisky de agua benta", 198.21);
+            comanda.adicionaItem("Suco do Tibet", 54.48);
+            comanda.adicionaItem("Refri de Acerola", 14);
+            comanda.adicionaItem("Suco verde da tia Zilda", 10000.21);
         }catch (MesaNaoEncontrada e){}
         
         return restaurante;

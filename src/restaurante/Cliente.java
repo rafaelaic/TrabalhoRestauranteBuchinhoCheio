@@ -31,7 +31,7 @@ public class Cliente {
     @Override
     public String toString() {
         String string = "Nome: " + this.nome;
-        string += "\nEmail: " + this.email;
+        string += " | Email: " + this.email;
         return string;
     }
 

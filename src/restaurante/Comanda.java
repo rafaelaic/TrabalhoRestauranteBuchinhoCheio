@@ -1,26 +1,12 @@
 package restaurante;
 import java.util.List;
-import java.util.ArrayList;
 
 
-public class Comanda {
+public abstract class Comanda {
     //Private attributes
-    private List<String> consumo;
-    private double valor;
-    private List<Cliente> clientes;
+    protected List<String> consumo;
+    protected double valor;
 
-    //Constructors
-    public Comanda(){
-        this.consumo = new ArrayList<String>();
-        this.valor = 0;
-        this.clientes = new ArrayList<Cliente>();
-    }
-
-    public Comanda(List<Cliente> clientes) {
-        this.consumo = new ArrayList<String>();
-        this.valor = 0;
-        this.clientes = clientes;
-    }
     
     //Getters and Setters
     public List<String> getConsumo() {
@@ -33,29 +19,10 @@ public class Comanda {
         this.valor = valor;
     }
 
+    //Abstract methods
+    public abstract String getTipo();
+
     //Public methods
-    public void adicionaCliente(Cliente cliente){
-        this.clientes.add(cliente);
-    }
-
-    public void adicionaCliente(String nome, String email){
-        this.clientes.add(new Cliente(nome, email));
-    }
-
-    public boolean removeCliente(Cliente cliente){
-        return this.removeCliente(cliente.getNome(), cliente.getEmail());
-    }
-
-    public boolean removeCliente(String nome, String email){
-        for(Cliente cliente : this.clientes){
-            if(cliente.equals(new Cliente(nome, email))){
-                this.clientes.remove(cliente);
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void adicionaItem(String nome, double preco) throws IllegalArgumentException{
         //Checa os parâmetros
         if(nome == "" || preco < 0){
@@ -66,4 +33,26 @@ public class Comanda {
         this.valor += preco;
     }
 
+    public double dividirConta(int numDePessoas){
+        return this.valor/numDePessoas;
+    }
+
+    public void pagarConta(){
+        this.consumo.clear();
+        this.valor = 0;
+    }
+    
+    public double calcula10porcento(){
+        return this.valor * 0.10;
+    }
+    @Override
+    public String toString() {
+        String message = "Valor total = R$" + String.format("%.2f", this.valor);
+        message += "\nProdutos: ";
+        for(String produto : this.consumo){
+            message += "\n" + produto.toString();
+        }
+
+        return message;
+    }
 }
